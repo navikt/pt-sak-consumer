@@ -1,0 +1,5 @@
+#! /bin/bash
+docker-compose exec postgres psql -U postgres -d kafka -c 'CREATE SCHEMA IF NOT EXISTS fk_p;'
+docker-compose exec postgres psql -U postgres -d kafka -c 'CREATE EXTENSION IF NOT EXISTS "pgcrypto";'
+docker-compose exec postgres psql -U postgres -d kafka -c 'CREATE TABLE IF NOT EXISTS oppgave_json_dump (trans_id VARCHAR(40) PRIMARY KEY DEFAULT gen_random_uuid(), data TEXT NOT NULL, topic_navn VARCHAR(255) NULL);'
+docker-compose exec postgres psql -U postgres -d kafka -c 'ALTER TABLE oppgave_json_dump SET SCHEMA fk_p;'

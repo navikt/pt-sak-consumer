@@ -1,0 +1,1 @@
+docker-compose exec kafka kafka-console-producer --request-required-acks 1 --broker-list kafka:9092 --topic 'test-producer-topic'
