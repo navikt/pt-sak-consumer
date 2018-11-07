@@ -1,3 +1,4 @@
+from datetime import datetime
 from sqlalchemy import create_engine, CLOB, Column, Date, FetchedValue, String
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
@@ -9,19 +10,12 @@ class Oppgave(Base):
     __tablename__ = 'oppgave_json_dump'
     __table_args__ = {'schema': 'fk_p'}
 
-    transId = Column('trans_id',
-                     String(40),
-                     primary_key=True,
+    transId = Column('trans_id', String(40), primary_key=True,
                      server_default=FetchedValue())
-    data = Column('data',
-                  CLOB,
-                  nullable=False)
-    lastetDato = Column('lastet_dato',
-                        Date(),
-                        nullable=False,
-                        server_default=FetchedValue())
-    overfortStatus = Column('overfort_status',
-                            String(20))
+    data = Column('data', CLOB, nullable=False)
+    lastetDato = Column('lastet_dato', Date(), nullable=False)
+    overfortStatus = Column('overfort_status', String(20))
+    topicNavn = Column('topic_navn', String(255))
 
 
 class Database():
@@ -37,7 +31,8 @@ class Database():
         if self.session:
             self.session.close()
 
-    def store_message(self, message):
-        oppgave = Oppgave(data=message)
+    def store_message(self, topic, message):
+        oppgave = Oppgave(data=message, topicNavn=topic,
+                          lastetDato=datetime.now())
         self.session.add(oppgave)
         self.session.commit()
