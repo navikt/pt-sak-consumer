@@ -3,6 +3,12 @@ Hvordan teste
 
 Vi bruker `docker-compose` for å sette opp et Kafka Cluster og Postgres for å teste konsumering av meldinger.
 
+Før du kan begynne å teste må du installere Python-pakken `psycopg2-binary`, som brukes for å kommunisere med Postgres-databasen.
+
+```bash
+pip install --user psycopg2-binary
+```
+
 Det er tre kommandoer du må kjøre for å få alt satt opp:
 
 1. `docker-compose up -d`
