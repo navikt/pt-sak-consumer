@@ -12,9 +12,9 @@ load_dotenv()
 if __name__ == '__main__':
     start_http_server(8080)
     logging.basicConfig(
-        format='%(asctime)s:%(name)s:%(levelname)s:%(message)s',
+        format='{"timestamp": "%(asctime)s", "message": "%(name)s:%(message)s", "level": "%(levelname)s"}',
         level=logging.INFO,
-        datefmt='%Y-%m-%d %H:%M:%S')
+        datefmt='%Y-%m-%dT%H:%M:%S%z')
     topics = getenv('TOPICS', 'test-producer-topic').split(',')
     consumer = KafkaConsumer(
         *topics,
