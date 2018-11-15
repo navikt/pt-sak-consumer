@@ -4,6 +4,13 @@ replicas:
   min: 2
   max: 2
 secrets: true
+resources:
+  limits:
+    cpu: 100m
+    memory: 128Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
 healthcheck:
   liveness:
     path: /
