@@ -11,7 +11,10 @@ load_dotenv()
 
 if __name__ == '__main__':
     start_http_server(8080)
-    logging.basicConfig(level=logging.INFO)
+    logging.basicConfig(
+        format='%(asctime)s:%(name)s:%(levelname)s:%(message)s',
+        level=logging.INFO,
+        datefmt='%Y-%m-%d %H:%M:%S')
     topics = getenv('TOPICS', 'test-producer-topic').split(',')
     consumer = KafkaConsumer(
         *topics,
@@ -22,7 +25,8 @@ if __name__ == '__main__':
         sasl_plain_username=getenv('SASL_USERNAME'),
         sasl_plain_password=getenv('SASL_PASSWORD'),
         ssl_cafile=getenv('SSL_CAFILE'),
-        group_id=getenv('GROUP_ID'))
+        group_id=getenv('GROUP_ID'),
+        max_poll_records=100)
 
     database = Database(
         getenv('DB_URL',
