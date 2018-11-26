@@ -8,7 +8,7 @@ Base = declarative_base()
 
 class Oppgave(Base):
     __tablename__ = 'oppgave_json_dump'
-    __table_args__ = {'schema': 'fk_p'}
+    __table_args__ = {'schema': 'fk_sensitiv'}
 
     transId = Column('trans_id', String(40), primary_key=True,
                      server_default=FetchedValue())
