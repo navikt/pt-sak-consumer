@@ -25,8 +25,7 @@ if __name__ == '__main__':
         sasl_plain_username=getenv('SASL_USERNAME'),
         sasl_plain_password=getenv('SASL_PASSWORD'),
         ssl_cafile=getenv('SSL_CAFILE'),
-        group_id=getenv('GROUP_ID'),
-        max_poll_records=100)
+        group_id=getenv('GROUP_ID'))
 
     database = Database(
         getenv('DB_URL',
