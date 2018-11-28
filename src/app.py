@@ -36,7 +36,7 @@ if __name__ == '__main__':
     c = Counter('messages', 'Meldinger lest')
 
     for message in consumer:
-        logging.info(f'Reading message with offsett={message.offset}')
+        logging.info(f'Reading message with offsett={message.offset} from partition={message.partition} from topic={message.topic}')
         database.store_message(message.topic, message.value)
         c.inc()
     database.close()
