@@ -12,7 +12,7 @@ class Oppgave(Base):
 
     transId = Column('trans_id', String(40), primary_key=True,
                      server_default=FetchedValue())
-    data = Column('data', CLOB, nullable=False)
+    data = Column('data', CLOB(), nullable=False)
     lastetDato = Column('lastet_dato', Date(), nullable=False)
     overfortStatus = Column('overfort_status', String(20))
     topicNavn = Column('topic_navn', String(255))
