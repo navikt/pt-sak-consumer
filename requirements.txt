@@ -1,5 +1,5 @@
 kafka-python==1.4.4
 prometheus_client==0.4.2
 python-dotenv==0.9.1
-sqlalchemy==1.2.13
+sqlalchemy==1.2.14
 cx-Oracle==7.0.0
