@@ -1,13 +1,9 @@
 import logging
 
 from database import Database
-from dotenv import load_dotenv
 from kafka import KafkaConsumer
 from os import getenv
 from prometheus_client import Counter, start_http_server
-
-load_dotenv()
-
 
 if __name__ == '__main__':
     start_http_server(8080)
