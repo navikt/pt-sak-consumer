@@ -20,7 +20,7 @@ if __name__ == '__main__':
         sasl_mechanism=getenv('SASL_MECHANISM'),
         sasl_plain_username=getenv('SASL_USERNAME'),
         sasl_plain_password=getenv('SASL_PASSWORD'),
-        ssl_cafile=getenv('SSL_CAFILE'),
+        ssl_cafile='/etc/pki/tls/cacert.pem',
         group_id=getenv('GROUP_ID'))
 
     database = Database(
