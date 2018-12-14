@@ -1,11 +1,21 @@
 NAME := navikt/pt-sak-consumer
-bump:
-	/bin/bash bump.sh
+DATE := $(shell date "+%Y-%m-%d")
+SHA := $(shell git --no-pager log -1 --pretty=%h)
+VERSION := ${DATE}-${SHA}
+PREPROD_VERSION := $(shell openssl rand -base64 6)
 
-build:
-	docker build --build-arg CLUSTER_ENV=preprod -t ${NAME}:$(shell /bin/cat ./version) -t ${NAME}:latest -t pt-sak-consumer .
+build-preprod:
+	docker build -t ${NAME}:${PREPROD_VERSION}-preprod -t ${NAME}:latest -t pt-sak-consumer --target=preprod .
 
-push:
-	docker push ${NAME}:$(shell /bin/cat ./version)
+push-preprod:
+	docker push ${NAME}:${PREPROD_VERSION}-preprod
 
-release: bump build push
+release-preprod: build-preprod push-preprod
+
+build-prod:
+	docker build -t ${NAME}:${VERSION}-1 -t ${NAME}:latest -t pt-sak-consumer --target=prod .
+
+push-prod:
+	docker push ${NAME}:${VERSION}-1
+
+release-prod: build-prod push-prod
