@@ -1,17 +1,24 @@
-image: navikt/pt-sak-consumer
-team: ptsak
-replicas:
-  min: 2
-  max: 2
-secrets: true
-resources:
-  limits:
-    cpu: 100m
-    memory: 128Mi
-  requests:
-    cpu: 100m
-    memory: 128Mi
-healthcheck:
+apiVersion: "nais.io/v1alpha1"
+kind: "Application"
+metadata:
+  name: pt-sak-consumer
+  namespace: default
+  labels:
+    team: ptsak
+spec:
+  image: navikt/pt-sak-consumer:<version>
+  port: 8080
+  replicas:
+    min: 2
+    max: 2
+  secrets: true
+  resources:
+    limits:
+      cpu: 100m
+      memory: 128Mi
+    requests:
+      cpu: 100m
+      memory: 128Mi
   liveness:
     path: /
     initialDelay: 20
@@ -22,15 +29,8 @@ healthcheck:
     path: /
     initialDelay: 20
     timeout: 1
-prometheus:
-  enabled: true
-  path: /
-alerts:
-- alert: appNotRunning
-  expr: sum(up{app="pt-sak-consumer"}) < 1
-  for: 5m
-  labels:
-    severity: critical
-  annotations:
-    description: pt-sak kjører ikke
-    action: Bruk kubectl for å se hva som feiler podene, og om deployment mangler
+  prometheus:
+    enabled: true
+    path: /
+  ingresses:
+    - https://pt-sak-consumer.nais.<domene>/
