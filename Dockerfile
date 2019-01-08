@@ -2,7 +2,7 @@ FROM navikt/oracle18-3-python36:1.0.0 AS common
 
 ENV SECURITY_PROTOCOL=SASL_SSL
 ENV SASL_MECHANISM=PLAIN
-ENV GROUP_ID=pt-sak-consumer
+ENV GROUP_ID=ptsak070119
 
 WORKDIR /root
 
