@@ -13,9 +13,9 @@ push-preprod:
 release-preprod: build-preprod push-preprod
 
 build-prod:
-	docker build -t ${NAME}:${VERSION}-1 -t ${NAME}:latest -t pt-sak-consumer --target=prod .
+	docker build -t ${NAME}:${VERSION} -t ${NAME}:latest -t pt-sak-consumer --target=prod .
 
 push-prod:
-	docker push ${NAME}:${VERSION}-1
+	docker push ${NAME}:${VERSION}
 
 release-prod: build-prod push-prod
