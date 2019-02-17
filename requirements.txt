@@ -1,4 +1,5 @@
 kafka-python==1.4.4
 prometheus_client==0.4.2
+python-json-logger==0.1.10
 sqlalchemy==1.2.14
 cx-Oracle==7.0.0
