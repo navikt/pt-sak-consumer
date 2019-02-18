@@ -1,9 +1,11 @@
 version: 2
 jobs:
   build:
-    machine: true
+    docker:
+      - image: circleci/python
     steps:
       - checkout
+      - setup_remote_docker
       - run:
           name: Login to Dockerhub
           command: docker login -u "$DOCKER_USER" -p "$DOCKER_PASSWORD"
