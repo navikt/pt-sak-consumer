@@ -11,7 +11,7 @@ jobs:
           name: Define version for this build
           command: |
             version=$(echo $(date "+%Y-%m-%d")-$(git --no-pager log -1 --pretty=%h))
-            echo 'export IMAGE_VERSION="$(version)"' >> $BASH_ENV
+            echo 'export IMAGE_VERSION="${version}"' >> $BASH_ENV
       - run:
           name: Build Docker container
           command: |
