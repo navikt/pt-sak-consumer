@@ -13,4 +13,5 @@ jobs:
             docker build -t navikt/pt-sak-consumer:latest -t navikt/pt-sak-consumer:preprod-${git_ref} --target=preprod .
             docker build -t navikt/pt-sak-consumer:latest -t navikt/pt-sak-consumer:${date}-${git_ref} --target=prod .
             docker push navikt/pt-sak-consumer:latest
-            docker push navikt/pt-sak-consumer:${version}
+            docker push navikt/pt-sak-consumer:preprod-${git_ref}
+            docker push navikt/pt-sak-consumer:${date}-${git_ref}
