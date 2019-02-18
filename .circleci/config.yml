@@ -1,25 +1,16 @@
 version: 2
 jobs:
   build:
-    docker:
-      - image: circleci/python
+    machine: true
     steps:
       - checkout
-      - setup_remote_docker
       - run:
           name: Login to Dockerhub
           command: docker login -u "$DOCKER_USER" -p "$DOCKER_PASSWORD"
       - run:
-          name: Define version for this build
+          name: Build and push Docker image
           command: |
             version=$(echo $(date "+%Y-%m-%d")-$(git --no-pager log -1 --pretty=%h))
-            echo 'export IMAGE_VERSION="${version}"' >> $BASH_ENV
-      - run:
-          name: Build Docker container
-          command: |
-            docker build -t navikt/pt-sak-consumer:latest -t navikt/pt-sak-consmer:${IMAGE_VERSION} .
-      - run:
-          name: Push Docker container
-          command: |
+            docker build -t navikt/pt-sak-consumer:latest -t navikt/pt-sak-consmer:${version} .
             docker push navikt/pt-sak-consumer:latest
-            docker push navikt/pt-sak-consumer:${IMAGE_VERSION}
+            docker push navikt/pt-sak-consumer:${version}
