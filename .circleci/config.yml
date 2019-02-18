@@ -5,11 +5,9 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Login to Dockerhub
-          command: docker login -u "$DOCKER_USER" -p "$DOCKER_PASSWORD"
-      - run:
           name: Build and push Docker image
           command: |
+            docker login -u "$DOCKER_USER" -p "$DOCKER_PASSWORD"
             version=$(echo $(date "+%Y-%m-%d")-$(git --no-pager log -1 --pretty=%h))
             docker build -t navikt/pt-sak-consumer:latest -t navikt/pt-sak-consmer:${version} .
             docker push navikt/pt-sak-consumer:latest
