@@ -1,5 +1,7 @@
 # pt-sak-consumer
 
+[![CircleCI](https://circleci.com/gh/navikt/pt-sak-consumer/tree/master.svg?style=svg)](https://circleci.com/gh/navikt/pt-sak-consumer/tree/master)
+
 > pt-sak sin Python Kafka consumer
 
 Denne Python-appen leser fra en eller flere topics, og lagrere de i en tabell i en database. Den støtter å lese fra flere topics, men skriver kun til en database.
@@ -7,10 +9,9 @@ Denne Python-appen leser fra en eller flere topics, og lagrere de i en tabell i 
 
 ## Bygging
 
-```bash
-docker build --build-arg CLUSTER_ENV=<deploy-env> -t navikt/pt-sak-consumer:<version> .
-docker push navikt/pt-sak-consumer:<version>
-```
+Bygger automatisk i skyen (CircleCi) for hver push til master.
+
+Trenger du å teste manuelt, kan du kjøre `make test-release`, som bygger, og laster opp et image til Docker hub.
 
 
 ## Testing
