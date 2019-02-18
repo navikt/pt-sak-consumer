@@ -40,10 +40,10 @@ if __name__ == '__main__':
     database.open()
 
     logging.info(f'Consuming messages from {topics}')
-    message_read = Counter('messages_read', 'Meldinger lest')
-    storing_failed = Counter('storage_failed',
+    message_read = Counter('ptsak_messages_read', 'Meldinger lest')
+    storing_failed = Counter('ptsak_storage_failed',
                              'Meldinger som har feilet under lagring')
-    message_failed = Counter('messages_failed',
+    message_failed = Counter('ptsak_messages_failed',
                              'Meldinger som har feilet under lesing')
 
     try:
