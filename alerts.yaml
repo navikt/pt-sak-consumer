@@ -11,7 +11,7 @@ spec:
       channel: '#gsak_kafka_til_dvh'
   alerts:
     - alert: applikasjon nede
-      expr: sum(up{app="pt-sak-consumer"}) < 2
+      expr: sum(up{app="pt-sak-consumer", job="kubernetes-pods"}) < 2
       for: 2m
       description: "{{ $labels.app }} er nede i {{ $labels.kubernetes_namespace }}"
       action: "`kubeclt describe pod {{ $labels.kubernetes_pod_name }} -n {{ $labels.kubernetes_namespace }}` for events, og `kubectl logs {{ $labels.kubernetes_pod_name }} -n {{ $labels.kubernetes_namespace }}` for logger"
