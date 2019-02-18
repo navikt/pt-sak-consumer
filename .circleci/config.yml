@@ -8,7 +8,9 @@ jobs:
           name: Build and push Docker image
           command: |
             docker login -u "$DOCKER_USER" -p "$DOCKER_PASSWORD"
-            version=$(echo $(date "+%Y-%m-%d")-$(git --no-pager log -1 --pretty=%h))
-            docker build -t navikt/pt-sak-consumer:latest -t navikt/pt-sak-consumer:${version} .
+            date=$(date "+%Y-%m-%d")
+            git_ref=$(git --no-pager log -1 --pretty=%h)
+            dock build -t navikt/pt-sak-consumer:latest -t navikt/pt-sak-consumer:preprod-${git_ref} --target=preprod .
+            docker build -t navikt/pt-sak-consumer:latest -t navikt/pt-sak-consumer:${date}-${git_ref} --target=prod .
             docker push navikt/pt-sak-consumer:latest
             docker push navikt/pt-sak-consumer:${version}
