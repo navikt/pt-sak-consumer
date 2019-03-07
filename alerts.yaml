@@ -11,15 +11,7 @@ spec:
       channel: '#gsak_kafka_til_dvh'
   alerts:
     - alert: applikasjon nede
-      expr: sum(up{app="pt-sak-consumer", job="kubernetes-pods"}) < 2
+      expr: up{app="pt-sak-consumer", job="kubernetes-pods"} == 0
       for: 2m
       description: "{{ $labels.app }} er nede i {{ $labels.kubernetes_namespace }}"
       action: "`kubeclt describe pod {{ $labels.kubernetes_pod_name }} -n {{ $labels.kubernetes_namespace }}` for events, og `kubectl logs {{ $labels.kubernetes_pod_name }} -n {{ $labels.kubernetes_namespace }}` for logger"
-    - alert: høy feilrate i logger
-      expr: (100 * sum(rate(logd_messages_total{log_app="pt-sak-consumer",log_level="Info"}[3m])) / sum(rate(logd_messages_total{log_app="pt-sak-consumer"}[3m]))) < 90
-      for: 3m
-      action: "Sjekk loggene til {{ $labels.log_app }} i {{ $labels.log_namespace }}, for å se hvorfor det er så mye feil"
-    - alert: feil i selftest
-      expr: selftests_aggregate_result_status{app="pt-sak-consumer"} > 0
-      for: 1m
-      action: "Sjekk {{ $labels.app }} i {{ $labels.kubernetes_namespace }} sine selftest for å se hva som er galt"
