@@ -12,8 +12,6 @@ jobs:
           command: |
             date=$(date "+%Y-%m-%d")
             git_ref=$(git --no-pager log -1 --pretty=%h)
-            docker build -t navikt/pt-sak-consumer:preprod-${git_ref} --target=preprod .
-            docker push navikt/pt-sak-consumer:preprod-${git_ref}
-            docker build -t navikt/pt-sak-consumer:latest -t navikt/pt-sak-consumer:${date}-${git_ref} --target=prod .
+            docker build -t navikt/pt-sak-consumer:latest -t navikt/pt-sak-consumer:${date}-${git_ref} .
             docker push navikt/pt-sak-consumer:latest
             docker push navikt/pt-sak-consumer:${date}-${git_ref}
