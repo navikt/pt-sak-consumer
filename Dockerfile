@@ -1,4 +1,4 @@
-FROM navikt/oracle18-3-python36:1.0.0 AS common
+FROM navikt/oracle18-3-python36:1.0.0
 
 ENV SECURITY_PROTOCOL=SASL_SSL
 ENV SASL_MECHANISM=PLAIN
