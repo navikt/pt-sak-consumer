@@ -1,6 +1,6 @@
 version: 2.1
 orbs:
-  nais: navikt/nais-deployment@2.0.0
+  nais: navikt/nais-deployment@3.0.0
 executors:
   docker:
     docker:
@@ -16,11 +16,7 @@ jobs:
           root: ~/app
           paths:
             - .version
-      - nais/docker-build:
-          registry: docker.pkg.github.com
-          image: $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME/ptsak-consumer
-          tag: $(cat .version)
-      - nais/docker-push:
+      - nais/docker:
           registry: docker.pkg.github.com
           image: $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME/ptsak-consumer
           tag: $(cat .version)
