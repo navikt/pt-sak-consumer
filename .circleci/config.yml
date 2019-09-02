@@ -13,7 +13,7 @@ jobs:
       - checkout
       - run: echo "$(date "+%Y.%m.%d")-$(git rev-parse --short HEAD)-$CIRCLE_BUILD_NUM" > .version
       - persist_to_workspace:
-          root: /home/circleci/app
+          root: ~/app
           paths:
             - .version
       - nais/docker-build:
