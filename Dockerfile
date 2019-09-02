@@ -6,12 +6,12 @@ ENV GROUP_ID=ptsak070119
 
 WORKDIR /root
 
-RUN pip3.6 install --upgrade  pip
+RUN pip3.6 install --upgrade pip
 
-ADD requirements.txt .
+COPY requirements.txt .
 RUN pip3.6 install -r requirements.txt
 
-ADD src/ /root/
-ADD start.sh .
+COPY src/ /root/
+COPY start.sh .
 
 ENTRYPOINT ["/root/start.sh"]
