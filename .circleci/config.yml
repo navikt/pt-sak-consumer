@@ -1,14 +1,9 @@
 version: 2.1
 orbs:
   nais: navikt/nais-deployment@2.0.0
-executors:
-  docker:
-    docker:
-      - image: docker:stable
-    working_directory: ~/app
 jobs:
   build:
-    executor: docker
+    executor: deployment-cli
     steps:
       - checkout
       - run: echo "$(date "+%Y.%m.%d")-$(git rev-parse --short HEAD)-$CIRCLE_BUILD_NUM" > .version
