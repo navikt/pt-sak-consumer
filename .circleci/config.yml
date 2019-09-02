@@ -50,7 +50,7 @@ commands:
 workflows:
   build-deploy:
     jobs:
-      - build:
+      - build
       - deploy:
           filters:
             branches:
