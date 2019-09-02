@@ -6,12 +6,13 @@ metadata:
   labels:
     team: ptsak
 spec:
-  image: navikt/pt-sak-consumer:<version>
+  image: {{version}}
   port: 8080
   replicas:
     min: 2
     max: 2
-  secrets: true
+  vault:
+    enabled: true
   resources:
     limits:
       cpu: 100m
@@ -33,4 +34,4 @@ spec:
     enabled: true
     path: /
   ingresses:
-    - https://pt-sak-consumer.nais.<domene>/
+    - https://pt-sak-consumer.nais.preprod.local/
