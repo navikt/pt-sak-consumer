@@ -8,7 +8,7 @@ executors:
     working_directory: ~/app
 jobs:
   build:
-    executor: deployment-cli
+    executor: docker
     steps:
       - checkout
       - run: echo "$(date "+%Y.%m.%d")-$(git rev-parse --short HEAD)-$CIRCLE_BUILD_NUM" > .version
