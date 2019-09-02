@@ -5,6 +5,7 @@ executors:
   docker:
     docker:
       - image: docker:stable
+    working_directory: ~/app
 jobs:
   build:
     executor: docker
@@ -12,7 +13,7 @@ jobs:
       - checkout
       - run: echo "$(date "+%Y.%m.%d")-$(git rev-parse --short HEAD)-$CIRCLE_BUILD_NUM" > .version
       - persist_to_workspace:
-          root: .
+          root: /home/circleci/app
           paths:
             - .version
       - nais/docker:
@@ -34,9 +35,7 @@ commands:
     steps:
       - checkout
       - attach_workspace:
-          at: .
-      - run: pwd
-      - run: ls -la
+          at: ~/app
       - nais/deploy-with-personal-token:
             repo: $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME
             image: docker.pkg.github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME/ptsak-consumer
