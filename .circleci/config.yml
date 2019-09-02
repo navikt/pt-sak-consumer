@@ -1,6 +1,6 @@
 version: 2.1
 orbs:
-  nais: navikt/nais-deployment@3.0.1
+  nais: navikt/nais-deployment@dev:cluster_in_deploy_name
 executors:
   docker:
     docker:
