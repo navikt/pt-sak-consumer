@@ -15,7 +15,7 @@ jobs:
           cd $GITHUB_WORKSPACE
           export DOCKER_TAG="docker.pkg.github.com"/"$REPO"/"$NAME":"$(git rev-parse --short HEAD)"
       - name: Build Docker image
-        run: "docker build -t $(cat $HOME/.tag) ."
+        run: "docker build -t $DOCKER_TAG ."
       - name: Login to Github Package Registry
         uses: actions/docker/login@master
         env:
@@ -23,7 +23,7 @@ jobs:
           DOCKER_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
           DOCKER_REGISTRY_URL: docker.pkg.github.com
       - name: Push Docker image
-        run: "docker push $(cat .tag)"
+        run: "docker push $DOCKER_TAG"
       - name: deploy to dev-fss
         uses: navikt/deployment-cli/action@4a9fde2
         env:
