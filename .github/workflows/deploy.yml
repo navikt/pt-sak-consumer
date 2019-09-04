@@ -13,20 +13,9 @@ jobs:
           NAME: ptsak-consumer
         run: |
           cd $GITHUB_WORKSPACE
-          export TAG=$(git rev-parse --short HEAD)
-          echo "docker.pkg.github.com"/"$REPO"/"$NAME":"$TAG" > $HOME/.tag
-
-  docker-build:
-    name: Build Docker image
-    runs-on: ubuntu-latest
-    steps:
+          export DOCKER_TAG="docker.pkg.github.com"/"$REPO"/"$NAME":"$(git rev-parse --short HEAD)"
       - name: Build Docker image
         run: "docker build -t $(cat $HOME/.tag) ."
-
-  docker-push:
-    name: Push Docker image
-    runs-on: ubuntu-latest
-    steps:
       - name: Login to Github Package Registry
         uses: actions/docker/login@master
         env:
@@ -35,12 +24,6 @@ jobs:
           DOCKER_REGISTRY_URL: docker.pkg.github.com
       - name: Push Docker image
         run: "docker push $(cat .tag)"
-  deploy:
-    name: Deploy to dev-fss
-    runs-on: ubuntu-latest
-    steps:
-      - name: Create env variable
-        run: "export DOCKER_TAG=$(cat .tag)"
       - name: deploy to dev-fss
         uses: navikt/deployment-cli@4a9fde2
         env:
