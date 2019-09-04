@@ -12,10 +12,20 @@ jobs:
           REPO: ${{ github.repository }}
           NAME: ptsak-consumer
         run: |
+          pwd
+          ls
           cd $GITHUB_WORKSPACE
-          export DOCKER_TAG="docker.pkg.github.com"/"$REPO"/"$NAME":"$(git rev-parse --short HEAD)"
+          pwd
+          ls
+          echo "docker.pkg.github.com"/"$REPO"/"$NAME":"$(git rev-parse --short HEAD)" > .docker_tag
+          cp .docker_tag $HOME/.docker_tag
       - name: Build Docker image
-        run: "docker build -t $DOCKER_TAG ."
+        run: |
+          pwd
+          ls
+          cat .docker_tag
+          cat $HOME/.docker_tag
+          docker build -t $DOCKER_TAG .
       - name: Login to Github Package Registry
         uses: actions/docker/login@master
         env:
