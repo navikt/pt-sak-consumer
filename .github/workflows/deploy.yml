@@ -17,11 +17,12 @@ jobs:
         run: |
           docker build -t $(cat .docker_tag) .
       - name: Login to Github Package Registry
-        uses: actions/docker/login@master
+#        uses: actions/docker/login@master
         env:
           DOCKER_USERNAME: x-access-token
           DOCKER_PASSWORD: ${{ secrets.GITHUB_ACCESS_TOKEN }}
-          DOCKER_REGISTRY_URL: docker.pkg.github.com
+        run: |
+          echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USER" --password-stdin docker.pkg.github.com
       - name: Push Docker image
         run: "docker push $(cat .docker_tag)"
       - name: deploy to dev-fss
