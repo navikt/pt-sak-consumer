@@ -6,7 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v1  docker-tag:
+        uses: actions/checkout@v1
 
     name: Create Docker tag
     runs-on: ubuntu-latest
@@ -14,9 +14,10 @@ jobs:
       - name: Create Docker tag
         env:
           REPO: ${{ github.repository }}
-          NAME: docker.pkg.github.com
-          TAG: d
-        run: 'echo "docker.pkg.github.com"/"$REPO"/"$NAME":"$TAG" > .tag'
+          NAME: ptsak-consumer
+        run: |
+          export TAG=$(git rev-parse --short HEAD)
+          echo "docker.pkg.github.com"/"$REPO"/"$NAME":"$TAG" > .tag
 
   docker-build:
     name: Build Docker image
