@@ -32,5 +32,5 @@ jobs:
         with:
           cluster: dev-fss
           repository: ${{ github.repository }}
-          team: your-team
+          team: ptsak
           resource: nais.yaml
