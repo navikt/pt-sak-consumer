@@ -21,7 +21,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Build Docker image
-        run: "docker build -t $(cat .tag) ."
+        run: "docker build -t $(cat $HOME/.tag) ."
 
   docker-push:
     name: Push Docker image
