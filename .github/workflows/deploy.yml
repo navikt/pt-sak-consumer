@@ -8,6 +8,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v1
 
+  create-docker-tag:
     name: Create Docker tag
     runs-on: ubuntu-latest
     steps:
