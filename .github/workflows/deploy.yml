@@ -17,8 +17,9 @@ jobs:
           REPO: ${{ github.repository }}
           NAME: ptsak-consumer
         run: |
+          cd $GITHUB_WORKSPACE
           export TAG=$(git rev-parse --short HEAD)
-          echo "docker.pkg.github.com"/"$REPO"/"$NAME":"$TAG" > .tag
+          echo "docker.pkg.github.com"/"$REPO"/"$NAME":"$TAG" > $HOME/.tag
 
   docker-build:
     name: Build Docker image
