@@ -54,4 +54,3 @@ jobs:
           repository: ${{ github.repository }}
           team: your-team
           resource: nais.yaml
-          tag: ${{ DOCKER_TAG }}
