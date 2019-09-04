@@ -42,18 +42,15 @@ jobs:
     name: Deploy to dev-fss
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout code
-         uses: actions/checkout@v1
-         - name: deploy
-    - name: Create env variable
-      run: "export DOCKER_TAG=$(cat .tag)"
-    - name: deploy to dev-fss
-      uses: navikt/deployment-cli@4a9fde2
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        cluster: dev-fss
-        repository: ${{ github.repository }}
-        team: your-team
-        resource: nais.yaml
-        tag: ${{ DOCKER_TAG }}
+      - name: Create env variable
+        run: "export DOCKER_TAG=$(cat .tag)"
+      - name: deploy to dev-fss
+        uses: navikt/deployment-cli@4a9fde2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          cluster: dev-fss
+          repository: ${{ github.repository }}
+          team: your-team
+          resource: nais.yaml
+          tag: ${{ DOCKER_TAG }}
