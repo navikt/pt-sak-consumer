@@ -7,7 +7,7 @@ Denne Python-appen leser fra en eller flere topics, og lagrere de i en tabell i 
 
 ## Bygging
 
-Bygger automatisk i skyen (CircleCi) for hver push til master.
+Bygger automatisk i skyen med Github Actions for hver push til master.
 
 Trenger du å teste manuelt, kan du kjøre `make test-release`, som bygger, og laster opp et image til Docker hub.
 
