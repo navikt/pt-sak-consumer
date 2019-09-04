@@ -25,7 +25,7 @@ jobs:
       - name: Push Docker image
         run: "docker push $(cat .tag)"
       - name: deploy to dev-fss
-        uses: navikt/deployment-cli@4a9fde2
+        uses: navikt/deployment-cli/action@4a9fde2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
