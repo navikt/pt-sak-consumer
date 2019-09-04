@@ -2,16 +2,11 @@ name: Deploy to NAIS
 on: push
 jobs:
   checkout:
-    name: Checkout code
+    name: Checkout code and create docker tag
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v1
-
-  create-docker-tag:
-    name: Create Docker tag
-    runs-on: ubuntu-latest
-    steps:
       - name: Create Docker tag
         env:
           REPO: ${{ github.repository }}
