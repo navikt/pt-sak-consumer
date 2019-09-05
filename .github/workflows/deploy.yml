@@ -12,10 +12,11 @@ jobs:
           REPO: ${{ github.repository }}
           NAME: ptsak-consumer
         run: |
-          echo "docker.pkg.github.com"/"$REPO"/"$NAME":"$(git rev-parse --short HEAD)" > .docker_tag
+          echo "docker.pkg.github.com"/"$REPO"/"$NAME" > .docker_image
+          echo "$(date "+%Y.%m.%d")-$(git rev-parse --short HEAD)" > .docker_tag
       - name: Build Docker image
         run: |
-          docker build -t $(cat .docker_tag) .
+          docker build -t $(cat .docker_image):$(cat .docker_tag) .
       - name: Login to Github Package Registry
         env:
           DOCKER_USERNAME: x-access-token
@@ -23,9 +24,9 @@ jobs:
         run: |
           echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin docker.pkg.github.com
       - name: Push Docker image
-        run: "docker push $(cat .docker_tag)"
+        run: "docker push $(cat .docker_image):$(cat .docker_tag)"
       - name: deploy to dev-fss
-        uses: navikt/deployment-cli/action@0513175
+        uses: navikt/deployment-cli/action@25632ed
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
