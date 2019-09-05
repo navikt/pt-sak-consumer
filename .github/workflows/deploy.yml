@@ -28,7 +28,7 @@ jobs:
       - name: Push Docker image
         run: "docker push $(cat .docker_image):$(cat .docker_tag)"
       - name: deploy to dev-fss
-        uses: navikt/deployment-cli/action@b60ef91
+        uses: navikt/deployment-cli/action@48551fa
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
@@ -36,7 +36,7 @@ jobs:
           team: ptsak
           resource: nais/dev-fss.yaml
       - name: deploy to prod-fss
-        uses: navikt/deployment-cli/action@b60ef91
+        uses: navikt/deployment-cli/action@48551fa
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
