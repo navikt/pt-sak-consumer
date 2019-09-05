@@ -6,7 +6,7 @@ metadata:
   labels:
     team: ptsak
 spec:
-  image: {{version}}
+  image: {{image}}:{{tag}}
   port: 8080
   replicas:
     min: 2
