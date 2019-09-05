@@ -1,7 +1,10 @@
 name: Deploy to NAIS
-on: push
+on:
+  push:
+    branches:
+      - master
 jobs:
-  checkout:
+  build-push-deploy:
     name: Checkout code and create docker tag
     runs-on: ubuntu-latest
     steps:
@@ -32,3 +35,11 @@ jobs:
           cluster: dev-fss
           team: ptsak
           resource: nais/dev-fss.yaml
+      - name: deploy to prod-fss
+        uses: navikt/deployment-cli/action@b60ef91
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          cluster: prod-fss
+          team: ptsak
+          resource: nais/prod-fss.yaml
