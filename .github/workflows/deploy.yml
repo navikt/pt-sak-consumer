@@ -9,10 +9,9 @@ jobs:
         uses: actions/checkout@v1
       - name: Create Docker tag
         env:
-          REPO: ${{ github.repository }}
           NAME: ptsak-consumer
         run: |
-          echo "docker.pkg.github.com"/"$REPO"/"$NAME" > .docker_image
+          echo "docker.pkg.github.com"/"$GITHUB_REPOSITORY"/"$NAME" > .docker_image
           echo "$(date "+%Y.%m.%d")-$(git rev-parse --short HEAD)" > .docker_tag
       - name: Build Docker image
         run: |
