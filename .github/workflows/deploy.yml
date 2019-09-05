@@ -17,7 +17,6 @@ jobs:
         run: |
           docker build -t $(cat .docker_tag) .
       - name: Login to Github Package Registry
-#        uses: actions/docker/login@master
         env:
           DOCKER_USERNAME: x-access-token
           DOCKER_PASSWORD: ${{ secrets.GITHUB_ACCESS_TOKEN }}
@@ -33,4 +32,4 @@ jobs:
           cluster: dev-fss
           repository: ${{ github.repository }}
           team: ptsak
-          resource: nais.yaml
+          resource: nais/dev-fss.yaml
