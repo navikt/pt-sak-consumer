@@ -1,4 +1,5 @@
 # pt-sak-consumer
+![Github Action - Deploy to NAIS](https://github.com/navikt/pt-sak-consumer/workflows/Deploy%20to%20NAIS/badge.svg)
 
 > pt-sak sin Python Kafka consumer
 
@@ -33,4 +34,4 @@ Du kan enkelt gjenbruke det vi har skrevet her, ved √• lage en fork av repoet v√
 * lag din egen config i `config/`-katalogen
 * bestille og konfigurere din egen Jenkins-server
 
-Lykke til!
+Lykke til!)
