@@ -15,8 +15,8 @@ jobs:
         uses: actions/checkout@v1
       - name: testing
         run: |
-        touch .docker_image
-        touch .docker_tag
+          touch .docker_image
+          touch .docker_tag
       - name: deploy to dev-fss
         uses: navikt/deployment-cli/action@a260e84
         env:
