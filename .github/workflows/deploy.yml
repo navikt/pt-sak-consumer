@@ -3,6 +3,12 @@ on:
   push:
     branches:
       - master
+    paths:
+      - 'nais/*'
+      - 'src/*'
+      - 'requirements.txt'
+      - 'start.sh'
+      - 'Dockerfile'
 jobs:
   build-push-deploy:
     name: Checkout code and create docker tag
