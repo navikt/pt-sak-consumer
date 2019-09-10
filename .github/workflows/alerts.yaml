@@ -1,0 +1,27 @@
+  
+name: Deploy alerts to NAIS
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'alerts.yaml'
+jobs:
+  deploy_dev:
+    name: alerts til dev
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v1
+      - name: testing
+        run: |
+        touch .docker_image
+        touch .docker_tag
+      - name: deploy to dev-fss
+        uses: navikt/deployment-cli/action@a260e84
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          cluster: dev-fss
+          team: ptsak
+          resource: alerts.yaml
