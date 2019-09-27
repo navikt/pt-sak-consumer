@@ -34,4 +34,4 @@ spec:
     enabled: true
     path: /
   ingresses:
-    - https://pt-sak-consumer.nais.{{ domain}}/
+    - https://pt-sak-consumer.nais.{{ domain}}
