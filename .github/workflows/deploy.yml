@@ -4,7 +4,9 @@ on:
     branches:
       - master
     paths:
-      - 'nais/*'
+      - 'nais/prod.json'
+      - 'nais/dev.json'
+      - 'nais/nais.yaml'
       - 'src/*'
       - 'requirements.txt'
       - 'start.sh'
@@ -40,7 +42,8 @@ jobs:
         with:
           cluster: dev-fss
           team: ptsak
-          resources: nais/dev-fss.yaml
+          resources: nais/nais.yaml
+          vars: nais/dev.yaml
       - name: deploy to prod-fss
         uses: navikt/deployment-cli/action@4951123
         env:
@@ -48,4 +51,5 @@ jobs:
         with:
           cluster: prod-fss
           team: ptsak
-          resources: nais/prod-fss.yaml
+          resources: nais/nais.yaml
+          vars: nais/prod.yaml
