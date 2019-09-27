@@ -43,7 +43,7 @@ jobs:
           cluster: dev-fss
           team: ptsak
           resources: nais/nais.yaml
-          vars: nais/dev.yaml
+          vars: nais/dev.json
       - name: deploy to prod-fss
         uses: navikt/deployment-cli/action@4951123
         env:
@@ -52,4 +52,4 @@ jobs:
           cluster: prod-fss
           team: ptsak
           resources: nais/nais.yaml
-          vars: nais/prod.yaml
+          vars: nais/prod.json
