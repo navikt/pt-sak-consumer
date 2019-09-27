@@ -18,10 +18,18 @@ jobs:
           touch .docker_image
           touch .docker_tag
       - name: deploy to dev-fss
-        uses: navikt/deployment-cli/action@a260e84
+        uses: navikt/deployment-cli/action@0.4.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           cluster: dev-fss
           team: ptsak
-          resource: alerts.yaml
+          rawresources: alerts.yaml
+      - name: deploy to prod-fss
+        uses: navikt/deployment-cli/action@0.4.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          cluster: prod-fss
+          team: ptsak
+          rawresources: alerts.yaml
