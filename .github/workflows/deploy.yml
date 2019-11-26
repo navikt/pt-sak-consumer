@@ -12,7 +12,7 @@ on:
       - 'start.sh'
       - 'Dockerfile'
 jobs:
-  build-push-deploy:
+  build:
     name: Checkout code and create docker tag
     runs-on: ubuntu-latest
     steps:
@@ -27,6 +27,10 @@ jobs:
       - name: Build Docker image
         run: |
           docker build -t $(cat .docker_image):$(cat .docker_tag) .
+  push:
+    name: Push to Github Package Registry
+    runs-on: ubuntu-latest
+    steps:
       - name: Login to Github Package Registry
         env:
           DOCKER_USERNAME: x-access-token
@@ -35,21 +39,24 @@ jobs:
           echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin docker.pkg.github.com
       - name: Push Docker image
         run: "docker push $(cat .docker_image):$(cat .docker_tag)"
-      - name: deploy to dev-fss
-        uses: navikt/deployment-cli/action@0.4.0
+
+  deploy:
+    name: Deploy to dev and prod
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v1
+      - name: deploy to dev
+        uses: nais/deploy/actions/deploy@v1
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          cluster: dev-fss
-          team: ptsak
-          resources: nais/nais.yaml
-          vars: nais/dev.json
-      - name: deploy to prod-fss
-        uses: navikt/deployment-cli/action@4951123
+          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
+          CLUSTER: dev-fss
+          RESOURCE: nais/nais.yml
+          VARS: nais/dev.json
+      - name: deploy to prod
+        uses: nais/deploy/actions/deploy@v1
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          cluster: prod-fss
-          team: ptsak
-          resources: nais/nais.yaml
-          vars: nais/prod.json
+          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
+          CLUSTER: prod-fss
+          RESOURCE: nais/nais.yml
+          VARS: nais/dev.json
