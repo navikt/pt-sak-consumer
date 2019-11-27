@@ -24,7 +24,10 @@ jobs:
       - name: Create Docker tag
         env:
           NAME: ptsak-consumer
-        run: export DOCKER="docker.pkg.github.com"/"$GITHUB_REPOSITORY"/"$NAME:$(date "+%Y.%m.%d")-$(git rev-parse --short HEAD)"
+        run: |
+          echo -n "docker.pkg.github.com"/"$GITHUB_REPOSITORY"/"$NAME" > .docker
+          echo -n "$(date "+%Y.%m.%d")-$(git rev-parse --short HEAD)" >> .docker
+          echo ::set-env name=DOCKER::$(cat .docker)
       - name: Build Docker image
         run: docker build -t $DOCKER .
       - name: Login to Github Package Registry
@@ -49,7 +52,7 @@ jobs:
           CLUSTER: dev-fss
           RESOURCE: nais/nais.yaml
           VARS: nais/dev.json
-          IMAGE: ${{ DOCKER}}
+          IMAGE: $DOCKER
       - name: deploy to prod
         uses: nais/deploy/actions/deploy@v1
         env:
@@ -57,4 +60,4 @@ jobs:
           CLUSTER: prod-fss
           RESOURCE: nais/nais.yaml
           VARS: nais/dev.json
-          IMAGE: ${{ DOCKER }}
+          IMAGE: $DOCKER
