@@ -42,7 +42,6 @@ jobs:
         uses: actions/download-artifact@v1
         with:
           name: docker
-          path: /
       - name: Login to Github Package Registry
         env:
           DOCKER_USERNAME: x-access-token
@@ -50,7 +49,7 @@ jobs:
         run: |
           echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin docker.pkg.github.com
       - name: Push Docker image
-        run: "docker push $(cat .docker)"
+        run: "docker push $(cat docker/.docker)"
 
   deploy:
     name: Deploy to dev and prod
@@ -61,7 +60,6 @@ jobs:
         uses: actions/download-artifact@v1
         with:
           name: docker
-          path: /
       - name: Checkout code
         uses: actions/checkout@v1
       - name: deploy to dev
@@ -71,7 +69,7 @@ jobs:
           CLUSTER: dev-fss
           RESOURCE: nais/nais.yaml
           VARS: nais/dev.json
-          IMAGE: "$(cat .docker)"
+          IMAGE: "$(cat docker/.docker)"
       - name: deploy to prod
         uses: nais/deploy/actions/deploy@v1
         env:
@@ -79,4 +77,4 @@ jobs:
           CLUSTER: prod-fss
           RESOURCE: nais/nais.yaml
           VARS: nais/dev.json
-          IMAGE: "$(cat .docker)"
+          IMAGE: "$(cat docker/.docker)"
