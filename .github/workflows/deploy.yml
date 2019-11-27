@@ -26,7 +26,7 @@ jobs:
           NAME: ptsak-consumer
         run: |
           echo -n "docker.pkg.github.com"/"$GITHUB_REPOSITORY"/"$NAME" > .docker
-          echo -n "$(date "+%Y.%m.%d")-$(git rev-parse --short HEAD)" >> .docker
+          echo -n ":$(date "+%Y.%m.%d")-$(git rev-parse --short HEAD)" >> .docker
           echo ::set-env name=DOCKER::$(cat .docker)
       - name: Build Docker image
         run: docker build -t $DOCKER .
