@@ -11,6 +11,7 @@ on:
       - 'requirements.txt'
       - 'start.sh'
       - 'Dockerfile'
+      - '.github/workflows/deploy.yml'
 jobs:
   release:
     name: Build and release
