@@ -13,7 +13,7 @@ on:
       - 'Dockerfile'
       - '.github/workflows/deploy.yml'
 env:
-  DOCKER: "empty"
+  IMAGE: "empty"
 jobs:
   build-push:
     name: Create and push Docker image
@@ -27,16 +27,16 @@ jobs:
         run: |
           echo -n "docker.pkg.github.com"/"$GITHUB_REPOSITORY"/"$NAME" > .docker
           echo -n ":$(date "+%Y.%m.%d")-$(git rev-parse --short HEAD)" >> .docker
-          echo ::set-env name=DOCKER::$(cat .docker)
+          echo ::set-env name=IMAGE::$(cat .docker)
       - name: Build Docker image
-        run: docker build -t $DOCKER .
+        run: docker build -t $IMAGE .
       - name: Login to Github Package Registry
         env:
           DOCKER_USERNAME: x-access-token
           DOCKER_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
         run: echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin docker.pkg.github.com
       - name: Push Docker image
-        run: "docker push $DOCKER"
+        run: "docker push $IMAGE"
 
   deploy:
     name: Deploy to dev and prod
@@ -52,7 +52,6 @@ jobs:
           CLUSTER: dev-fss
           RESOURCE: nais/nais.yaml
           VARS: nais/dev.json
-          IMAGE: $DOCKER
       - name: deploy to prod
         uses: nais/deploy/actions/deploy@v1
         env:
@@ -60,4 +59,3 @@ jobs:
           CLUSTER: prod-fss
           RESOURCE: nais/nais.yaml
           VARS: nais/dev.json
-          IMAGE: $DOCKER
