@@ -14,7 +14,7 @@ on:
       - '.github/workflows/deploy.yml'
 jobs:
   build:
-    name: Create Docker image
+    name: Create and push Docker image
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -27,21 +27,6 @@ jobs:
       - name: Build Docker image
         run: |
           docker build -t $(cat .docker) .
-      - name: Upload Docker image and tag
-        uses: actions/upload-artifact@v1
-        with:
-          name: docker
-          path: .docker
-
-  push:
-    name: Push to Github Package Registry
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Download Docker image and tag
-        uses: actions/download-artifact@v1
-        with:
-          name: docker
       - name: Login to Github Package Registry
         env:
           DOCKER_USERNAME: x-access-token
@@ -49,7 +34,12 @@ jobs:
         run: |
           echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin docker.pkg.github.com
       - name: Push Docker image
-        run: "docker push $(cat docker/.docker)"
+        run: "docker push $(cat .docker)"
+      - name: Upload Docker image and tag
+        uses: actions/upload-artifact@v1
+        with:
+          name: docker
+          path: .docker
 
   deploy:
     name: Deploy to dev and prod
