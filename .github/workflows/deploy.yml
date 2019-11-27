@@ -31,7 +31,7 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: docker
-          path: /
+          path: .docker
 
   push:
     name: Push to Github Package Registry
@@ -42,7 +42,7 @@ jobs:
         uses: actions/download-artifact@v1
         with:
           name: docker
-          path: .docker
+          path: /
       - name: Login to Github Package Registry
         env:
           DOCKER_USERNAME: x-access-token
