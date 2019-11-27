@@ -28,7 +28,7 @@ jobs:
           export DOCKER="docker.pkg.github.com"/"$GITHUB_REPOSITORY"/"$NAME:$(date "+%Y.%m.%d")-$(git rev-parse --short HEAD)"
       - name: Build Docker image
         run: |
-          docker build -t $(cat .docker) .
+          docker build -t $DOCKER .
       - name: Login to Github Package Registry
         env:
           DOCKER_USERNAME: x-access-token
