@@ -67,4 +67,4 @@ jobs:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: prod-fss
           RESOURCE: nais/nais.yaml
-          VARS: nais/dev.json
+          VARS: nais/prod.json
