@@ -24,19 +24,16 @@ jobs:
       - name: Create Docker tag
         env:
           NAME: ptsak-consumer
-        run: |
-          export DOCKER="docker.pkg.github.com"/"$GITHUB_REPOSITORY"/"$NAME:$(date "+%Y.%m.%d")-$(git rev-parse --short HEAD)"
+        run: export DOCKER="docker.pkg.github.com"/"$GITHUB_REPOSITORY"/"$NAME:$(date "+%Y.%m.%d")-$(git rev-parse --short HEAD)"
       - name: Build Docker image
-        run: |
-          docker build -t ${{ DOCKER }} .
+        run: docker build -t $DOCKER .
       - name: Login to Github Package Registry
         env:
           DOCKER_USERNAME: x-access-token
           DOCKER_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin docker.pkg.github.com
+        run: echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin docker.pkg.github.com
       - name: Push Docker image
-        run: "docker push ${{ DOCKER }}"
+        run: "docker push $DOCKER"
 
   deploy:
     name: Deploy to dev and prod
