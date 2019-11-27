@@ -6,30 +6,23 @@ on:
       - master
     paths:
       - 'alerts.yaml'
+      - '.github/workflows/alerts.yml'
 jobs:
-  deploy_dev:
-    name: alerts til dev
+  apply-alerts:
+    name: Apply alerts to cluster
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v1
-      - name: testing
-        run: |
-          touch .docker_image
-          touch .docker_tag
-      - name: deploy to dev-fss
-        uses: navikt/deployment-cli/action@0.4.0
+      - name: deploy to dev
+        uses: nais/deploy/actions/deploy@v1
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          cluster: dev-fss
-          team: ptsak
-          rawresources: alerts.yaml
-      - name: deploy to prod-fss
-        uses: navikt/deployment-cli/action@0.4.0
+          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
+          CLUSTER: dev-fss
+          RESOURCE: nais/alerts.yaml
+      - name: deploy to prod
+        uses: nais/deploy/actions/deploy@v1
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          cluster: prod-fss
-          team: ptsak
-          rawresources: alerts.yaml
+          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
+          CLUSTER: prod-fss
+          RESOURCE: nais/alerts.yaml
