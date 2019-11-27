@@ -31,7 +31,7 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: docker
-          path: .docker
+          path: /
 
   push:
     name: Push to Github Package Registry
@@ -61,7 +61,7 @@ jobs:
         uses: actions/download-artifact@v1
         with:
           name: docker
-          path: .docker
+          path: /
       - name: Checkout code
         uses: actions/checkout@v1
       - name: deploy to dev
