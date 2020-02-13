@@ -5,7 +5,7 @@ on:
     branches:
       - master
     paths:
-      - 'alerts.yaml'
+      - 'nais/alerts.yaml'
       - '.github/workflows/alerts.yml'
 jobs:
   apply-alerts:
