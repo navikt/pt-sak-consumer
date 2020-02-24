@@ -8,7 +8,7 @@ metadata:
 spec:
   receivers:
     slack:
-      channel: '#gsak_kafka_til_dvh'
+      channel: "#gsak_kafka_til_dvh"
   alerts:
     - alert: applikasjon nede
       expr: up{app="pt-sak-consumer", job="kubernetes-pods"} == 0
