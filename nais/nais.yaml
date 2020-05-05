@@ -35,3 +35,6 @@ spec:
     path: /
   ingresses:
     - https://pt-sak-consumer.nais.{{ domain}}
+  env:
+    - name: TEST_BOOL
+      value: "true"
