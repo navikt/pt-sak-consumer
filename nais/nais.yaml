@@ -6,7 +6,7 @@ metadata:
   labels:
     team: ptsak
 spec:
-  image: {{image}}
+  image: {{ image }}
   port: 8080
   replicas:
     min: 2
@@ -34,7 +34,4 @@ spec:
     enabled: true
     path: /
   ingresses:
-    - https://pt-sak-consumer.nais.{{ domain}}
-  env:
-    - name: TEST_BOOL
-      value: "true"
+    - https://pt-sak-consumer.nais.{{ domain }}
